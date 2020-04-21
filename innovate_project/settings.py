@@ -126,17 +126,14 @@ MEDIA_URL = '/medi/'
 LOGIN_REDIRECT_URL = '/ideas_list'
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-django_heroku.settings(locals())
 
-try:
+try:　
     from .local_settings import *
 except ImportError:
     pass
 
-# Debug=Falseの時だけ実行する設定
+
 if not DEBUG:
     import django_heroku
-    django_heroku.settings(locals())　
+    django_heroku.settings(locals())
