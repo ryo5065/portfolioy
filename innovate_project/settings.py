@@ -24,9 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '40*l_2b@6(%=9y0ojw5icl(hi4pz*tc2jg_o9p0^s&vn+m=03g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -48,6 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'innovate_project.urls'
@@ -120,3 +121,17 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 django_heroku.settings(locals())
+
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))　
+
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')　
+
+try:　　　　　　　　　　　　　　　　　　
+    from .local_settings import *
+except ImportError:
+    pass
+
+
+if not DEBUG:
+    import django_heroku
+    django_heroku.settings(locals())　
